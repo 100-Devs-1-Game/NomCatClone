@@ -1,11 +1,45 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqkoh1kgumd4p"]
+[gd_scene load_steps=12 format=3 uid="uid://bqkoh1kgumd4p"]
 
 [ext_resource type="Script" uid="uid://cm8pwj3ifxvxc" path="res://scripts/game.gd" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://xxarjudgkedh" path="res://assets/alien 2/000.png" id="2_u5sy4"]
+[ext_resource type="Script" uid="uid://cf767p3w8glpt" path="res://scenes/lilguy_sprite.gd" id="2_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://vs2vvm2phugf" path="res://assets/alien 1/001.png" id="3_p57ef"]
+[ext_resource type="Texture2D" uid="uid://bimakhyfut5rr" path="res://assets/alien 1/000.png" id="4_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://ciw8aot8hc58g" path="res://assets/alien 2/001.png" id="4_vtaks"]
+[ext_resource type="Texture2D" uid="uid://bkjg1rcy6scm5" path="res://assets/alien 1/002.png" id="5_gee14"]
+[ext_resource type="Texture2D" uid="uid://hd4mwsndhco" path="res://assets/alien 2/002.png" id="5_kvpfn"]
+[ext_resource type="Texture2D" uid="uid://cqwp6vmdv5qsu" path="res://assets/alien 1/003.png" id="6_0tnpc"]
+[ext_resource type="Texture2D" uid="uid://bwk8qg3p8p6r2" path="res://assets/alien 2/003.png" id="6_dinhu"]
+
+[sub_resource type="Curve" id="Curve_vtaks"]
+_data = [Vector2(0, 0.5393259), 0.0, 2.9862669, 0, 0, Vector2(0.5163044, 0.6966293), -2.6312563, -2.6312563, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="GAME" type="Node2D"]
 script = ExtResource("1_uwrxv")
+heightcurve = SubResource("Curve_vtaks")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="lilguy_sprite1" type="Sprite2D" parent="."]
+position = Vector2(640, 830)
+texture = ExtResource("2_u5sy4")
+script = ExtResource("2_yqjtg")
+Sad1 = ExtResource("4_vtaks")
+Sad2 = ExtResource("5_kvpfn")
+Open = ExtResource("6_dinhu")
+Idle = ExtResource("2_u5sy4")
+control = "ui_left"
+
+[node name="lilguy_sprite2" type="Sprite2D" parent="."]
+position = Vector2(1280, 830)
+texture = ExtResource("6_0tnpc")
+script = ExtResource("2_yqjtg")
+Sad1 = ExtResource("3_p57ef")
+Sad2 = ExtResource("4_u5sy4")
+Open = ExtResource("5_gee14")
+Idle = ExtResource("6_0tnpc")
+control = "ui_right"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timeout"]

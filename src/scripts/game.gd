@@ -27,6 +27,8 @@ var catchable_instances: Array[Catchable] = []
 var Score: int = 0
 signal game_over
 
+@export var heightcurve: Curve
+
 func start():
 	randomize()
 	timer.start()
