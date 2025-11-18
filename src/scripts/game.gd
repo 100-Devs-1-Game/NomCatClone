@@ -15,13 +15,22 @@ class Catchable extends RefCounted:
 	var type: CATCHABLE_TYPE
 	var time: float = 2.0
 	var side: bool
+	var boundsprite: Sprite2D
 	
-	func _init(t: CATCHABLE_TYPE, s: bool):
+	func _init(t: CATCHABLE_TYPE, s: bool, spr: Sprite2D):
 		type = t
 		side = s
-	func update(delta: float) -> bool:
+		boundsprite = spr
+		var location = Vector2(0.0, 830.0) if !side else Vector2(1920, 320)
+		boundsprite.position = location
+	func update(delta: float, curve: Curve) -> bool:
 		time -= delta
-		return time <= -1.0
+		var initx = 0.0 if !side else 1920.0
+		var endx = 640.0 if !side else 1280.0
+		boundsprite.rotate(delta)
+		boundsprite.position.x = lerpf(initx, endx, (2.0 - time) / 2.0)
+		boundsprite.position.y = lerpf(830.0, 300.0, curve.sample(2.0 - time))
+		return time <= -0.4
 #endregion
 
 var catchable_instances: Array[Catchable] = []
@@ -49,7 +58,7 @@ func _on_timeout() -> void:
 func _process(delta: float) -> void:
 	var cleanup = []
 	for c in catchable_instances:
-		if c.update(delta) and !c.type == CATCHABLE_TYPE.BOMB:
+		if c.update(delta, heightcurve) and !c.type == CATCHABLE_TYPE.BOMB:
 			timer.stop()
 			game_over.emit()
 		if Input.is_action_pressed("ui_left") and absf(c.time) < 0.25 and !c.side:
@@ -78,38 +87,25 @@ func _process(delta: float) -> void:
 			cleanup.append(c)
 	
 	for c in cleanup:
+		c.boundsprite.queue_free()
 		catchable_instances.erase(c)
-	
-	queue_redraw()
-
-func _draw() -> void:
-	for c in catchable_instances:
-		var txtr
-		match c.type:
-			CATCHABLE_TYPE.FISH:
-				txtr = FISH_1_TEXTURE
-			CATCHABLE_TYPE.GOLD:
-				txtr = FISH_2_TEXTURE
-			CATCHABLE_TYPE.BOMB:
-				txtr = BOMB_TEXTURE
-		if txtr:
-			var startlocationX = 0.0 if !c.side else 1920.0
-			var endlocationX = 640.0 if !c.side else 1280.0
-			var weight = 1.0 - c.time
-			draw_texture(txtr, Vector2(
-				lerpf(startlocationX, endlocationX, clampf(weight, -1.0,1.0)),
-				800 - (300 * heightcurve.sample(weight))
-			))
+		
 
 func spawn_catchable():
 	var c
 	var side = randf() > 0.5
 	var random_type = randf()
+	var spr = Sprite2D.new()
+	add_child(spr)
 	if random_type < 0.25:
-		c = Catchable.new(CATCHABLE_TYPE.BOMB, side)
+		spr.texture = BOMB_TEXTURE
+		c = Catchable.new(CATCHABLE_TYPE.BOMB, side, spr)
 	elif random_type < 0.9:
-		c = Catchable.new(CATCHABLE_TYPE.FISH, side)
+		spr.texture = FISH_1_TEXTURE
+		c = Catchable.new(CATCHABLE_TYPE.FISH, side, spr)
 	else:
-		c = Catchable.new(CATCHABLE_TYPE.GOLD, side)
+		spr.texture = FISH_2_TEXTURE
+		c = Catchable.new(CATCHABLE_TYPE.GOLD, side, spr)
 	assert(c != null, "failed to create catchable")
 	catchable_instances.append(c)
+	

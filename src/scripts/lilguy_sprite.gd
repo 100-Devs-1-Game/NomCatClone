@@ -18,11 +18,6 @@ func _ready() -> void:
 	reset()
 
 func reset() -> void:
-	match control:
-		"ui_left":
-			assigned_guy = PlayerData.SKINS.get(PlayerData.lilguy1_skin)
-		"ui_right":
-			assigned_guy = PlayerData.SKINS.get(PlayerData.lilguy2_skin)
 	Idle = assigned_guy.IdleImage
 	Open = assigned_guy.OpenImage
 	Sad1 = assigned_guy.SadImage1
