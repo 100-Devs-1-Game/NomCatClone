@@ -5,8 +5,21 @@ var goldfish: int = 0
 
 const SAVEDATA_PATH = "res://savedata/savedata.json"
 
-#Will be added once those are a thing
-#var skins: Array[int] = []
+const SKINS = {
+	1: preload("res://misc_resources/lilguy1.tres"),
+	2: preload("res://misc_resources/lilguy2.tres"),
+	3: preload("res://misc_resources/lilguy3.tres"),
+	4: preload("res://misc_resources/lilguy4.tres"),
+	5: preload("res://misc_resources/lilguy5.tres"),
+	6: preload("res://misc_resources/lilguy6.tres"),
+	7: preload("res://misc_resources/lilguy7.tres"),
+	8: preload("res://misc_resources/lilguy8.tres"),
+}
+var unlocked_skins: Array = [
+	1
+]
+var lilguy1_skin: int = 1
+var lilguy2_skin: int = 1
 
 func _ready() -> void:
 	#load save data

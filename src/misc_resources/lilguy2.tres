@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="LilGuySkin" load_steps=7 format=3 uid="uid://d3qyts3vbipps"]
+
+[ext_resource type="Texture2D" uid="uid://ctpiartmaodec" path="res://assets/alien 2/004.png" id="1_2yt85"]
+[ext_resource type="Script" uid="uid://bjbaql13kqxnc" path="res://scripts/LilGuySkin.gd" id="1_qt06r"]
+[ext_resource type="Texture2D" uid="uid://xxarjudgkedh" path="res://assets/alien 2/000.png" id="2_6trx1"]
+[ext_resource type="Texture2D" uid="uid://bwk8qg3p8p6r2" path="res://assets/alien 2/003.png" id="3_qs0bo"]
+[ext_resource type="Texture2D" uid="uid://hd4mwsndhco" path="res://assets/alien 2/002.png" id="4_ltt2g"]
+[ext_resource type="Texture2D" uid="uid://ciw8aot8hc58g" path="res://assets/alien 2/001.png" id="5_yis2u"]
+
+[resource]
+script = ExtResource("1_qt06r")
+IdleImage = ExtResource("2_6trx1")
+OpenImage = ExtResource("3_qs0bo")
+SadImage1 = ExtResource("4_ltt2g")
+SadImage2 = ExtResource("5_yis2u")
+BoomedImage = ExtResource("1_2yt85")
+metadata/_custom_type_script = "uid://bjbaql13kqxnc"
