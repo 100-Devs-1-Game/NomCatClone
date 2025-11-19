@@ -39,6 +39,9 @@ func _ready() -> void:
 			}
 		print(unpacked)
 
+func _exit_tree() -> void:
+	save_data()
+
 #Call this when closing the game
 func save_data() -> void:
 	var packed = {

@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwt8mm0d6dshu"]
+
+[ext_resource type="Script" uid="uid://d1rkarg50ckry" path="res://scripts/main_ui.gd" id="1_fnul3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f863i"]
+bg_color = Color(0.16206557, 0.1620656, 0.16206548, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fnul3"]
+
+[node name="MainUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fnul3")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f863i")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Shop" type="Button" parent="MarginContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 28
+text = "Shop!
+"
+
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+theme_override_styles/separator = SubResource("StyleBoxEmpty_fnul3")
+
+[node name="Start" type="Button" parent="MarginContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 28
+text = "Start!
+"
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+theme_override_styles/separator = SubResource("StyleBoxEmpty_fnul3")
+
+[node name="Quit" type="Button" parent="MarginContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 28
+text = "Quit!"
+
+[connection signal="button_down" from="MarginContainer/Panel/HBoxContainer/Shop" to="." method="_on_shop_button_down"]
+[connection signal="button_down" from="MarginContainer/Panel/HBoxContainer/Start" to="." method="_on_start_button_down"]
+[connection signal="button_down" from="MarginContainer/Panel/HBoxContainer/Quit" to="." method="_on_quit_button_down"]

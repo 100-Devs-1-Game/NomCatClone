@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cm8pwj3ifxvxc" path="res://scripts/game.gd" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://cjt43hbdvjpvb" path="res://assets/background/bg.png" id="2_kvpfn"]
+[ext_resource type="PackedScene" uid="uid://bwt8mm0d6dshu" path="res://scenes/main_ui.tscn" id="2_u5sy4"]
 [ext_resource type="Script" uid="uid://cf767p3w8glpt" path="res://scripts/lilguy_sprite.gd" id="2_yqjtg"]
 [ext_resource type="Resource" uid="uid://gy2rjd3d77gq" path="res://misc_resources/lilguy1.tres" id="5_p57ef"]
-[ext_resource type="Texture2D" uid="uid://cqwp6vmdv5qsu" path="res://assets/alien 1/003.png" id="6_0tnpc"]
-[ext_resource type="Texture2D" uid="uid://bwk8qg3p8p6r2" path="res://assets/alien 2/003.png" id="6_dinhu"]
+[ext_resource type="AudioStream" uid="uid://dk1bj1osqeoba" path="res://assets/music/Nom Cats.mp3" id="6_u5sy4"]
 
 [sub_resource type="Curve" id="Curve_vtaks"]
 _limits = [-1.0, 1.5, 0.0, 2.5]
@@ -13,9 +13,13 @@ _data = [Vector2(0, 0), 0.0, 3.1104553, 0, 0, Vector2(2, 0), -2.4092407, -2.4092
 point_count = 3
 metadata/_snap_enabled = true
 
-[node name="GAME" type="Node2D"]
+[node name="GAME" type="Node2D" groups=["MainNode"]]
 script = ExtResource("1_uwrxv")
 heightcurve = SubResource("Curve_vtaks")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainUI" parent="CanvasLayer" instance=ExtResource("2_u5sy4")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 show_behind_parent = true
@@ -28,18 +32,94 @@ one_shot = true
 [node name="lilguy_sprite1" type="Sprite2D" parent="."]
 show_behind_parent = true
 position = Vector2(640, 830)
-texture = ExtResource("6_dinhu")
 flip_h = true
 script = ExtResource("2_yqjtg")
 assigned_guy = ExtResource("5_p57ef")
 control = "ui_left"
 
+[node name="particles" type="CPUParticles2D" parent="lilguy_sprite1"]
+position = Vector2(0, -51)
+emitting = false
+amount = 12
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.5
+randomness = 0.25
+emission_shape = 2
+emission_sphere_radius = 32.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 256.0
+initial_velocity_max = 320.0
+scale_amount_min = 16.0
+scale_amount_max = 32.0
+
+[node name="boomparticles" type="CPUParticles2D" parent="lilguy_sprite1"]
+position = Vector2(0, -51)
+emitting = false
+amount = 48
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.25
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 640.0
+initial_velocity_max = 800.0
+scale_amount_min = 96.0
+scale_amount_max = 96.0
+color = Color(0.99, 0.39600003, 0, 1)
+hue_variation_min = -0.26
+hue_variation_max = 0.26
+
 [node name="lilguy_sprite2" type="Sprite2D" parent="."]
 show_behind_parent = true
 position = Vector2(1280, 830)
-texture = ExtResource("6_0tnpc")
 script = ExtResource("2_yqjtg")
 assigned_guy = ExtResource("5_p57ef")
 control = "ui_right"
+
+[node name="particles" type="CPUParticles2D" parent="lilguy_sprite2"]
+position = Vector2(0, -51)
+emitting = false
+amount = 12
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.5
+randomness = 0.25
+emission_shape = 2
+emission_sphere_radius = 32.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 256.0
+initial_velocity_max = 320.0
+scale_amount_min = 16.0
+scale_amount_max = 32.0
+
+[node name="boomparticles" type="CPUParticles2D" parent="lilguy_sprite2"]
+position = Vector2(0, -51)
+emitting = false
+amount = 48
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.25
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 640.0
+initial_velocity_max = 800.0
+scale_amount_min = 96.0
+scale_amount_max = 96.0
+color = Color(0.99, 0.39600003, 0, 1)
+hue_variation_min = -0.26
+hue_variation_max = 0.26
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_u5sy4")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timeout"]

@@ -38,22 +38,27 @@ var catchable_instances: Array[Catchable] = []
 @onready var timer: Timer = $Timer
 @onready var lilguy_left: Sprite2D = $lilguy_sprite1
 @onready var lilguy_right: Sprite2D = $lilguy_sprite2
+@onready var music: AudioStreamPlayer = $AudioStreamPlayer
 
 var Score: int = 0
 signal game_over
 
 @export var heightcurve: Curve
 
-func _ready() -> void:
-	start()
+var started = false
 
 func start():
 	randomize()
 	timer.start()
+	started = true
+
+var increment = 0.0
 
 func _on_timeout() -> void:
 	spawn_catchable()
-	timer.start(randf_range(1.0, 3.0))
+	var new_increment = Score / 10.0
+	var maxtime = 3.0 - new_increment
+	timer.start(randf_range(0.5, maxtime))
 
 func _process(delta: float) -> void:
 	var cleanup = []
@@ -61,27 +66,33 @@ func _process(delta: float) -> void:
 		if c.update(delta, heightcurve) and !c.type == CATCHABLE_TYPE.BOMB:
 			timer.stop()
 			game_over.emit()
-		if Input.is_action_pressed("ui_left") and absf(c.time) < 0.25 and !c.side:
+		if Input.is_action_pressed("ui_left") and absf(c.time) < 0.12 and !c.side:
 			match c.type:
 				CATCHABLE_TYPE.FISH:
 					Score += 1
+					lilguy_left.particles.emitting = true
 				CATCHABLE_TYPE.GOLD:
 					Score += 1
 					PlayerData.goldfish += 1
+					lilguy_left.particles.emitting = true
 				CATCHABLE_TYPE.BOMB:
 					lilguy_left.went_boom = true
+					lilguy_left.boomparticles.emitting = true
 					timer.stop()
 					game_over.emit()
 			cleanup.append(c)
-		if Input.is_action_pressed("ui_right") and absf(c.time) < 0.25 and c.side:
+		if Input.is_action_pressed("ui_right") and absf(c.time) < 0.12 and c.side:
 			match c.type:
 				CATCHABLE_TYPE.FISH:
 					Score += 1
+					lilguy_right.particles.emitting = true
 				CATCHABLE_TYPE.GOLD:
 					Score += 1
+					lilguy_right.particles.emitting = true
 					PlayerData.goldfish += 1
 				CATCHABLE_TYPE.BOMB:
 					lilguy_right.went_boom = true
+					lilguy_right.boomparticles.emitting = true
 					timer.stop()
 					game_over.emit()
 			cleanup.append(c)

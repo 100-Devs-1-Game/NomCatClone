@@ -14,7 +14,12 @@ var sad_time = 0.1
 
 @export var control: String = ""
 
+@onready var particles: CPUParticles2D = $particles
+@onready var boomparticles: CPUParticles2D = $boomparticles
+
+
 func _ready() -> void:
+	get_parent().game_over.connect(func(): sad = true)
 	reset()
 
 func reset() -> void:
@@ -34,8 +39,8 @@ func _process(delta: float) -> void:
 					texture = Sad2
 				else:
 					texture = Sad1
-	
-	if Input.is_action_pressed(control):
-		texture = Open
 	else:
-		texture = Idle
+		if Input.is_action_pressed(control):
+			texture = Open
+		else:
+			texture = Idle
