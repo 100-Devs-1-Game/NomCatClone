@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bwt8mm0d6dshu" path="res://scenes/main_ui.tscn" id="2_u5sy4"]
 [ext_resource type="Script" uid="uid://cf767p3w8glpt" path="res://scripts/lilguy_sprite.gd" id="2_yqjtg"]
 [ext_resource type="Resource" uid="uid://gy2rjd3d77gq" path="res://misc_resources/lilguy1.tres" id="5_p57ef"]
-[ext_resource type="AudioStream" uid="uid://dk1bj1osqeoba" path="res://assets/music/Nom Cats.mp3" id="6_u5sy4"]
+[ext_resource type="AudioStream" uid="uid://bimnvmupjkb4f" path="res://assets/music/Noem Cats Looped.mp3" id="6_p57ef"]
 
 [sub_resource type="Curve" id="Curve_vtaks"]
 _limits = [-1.0, 1.5, 0.0, 2.5]
@@ -117,7 +117,7 @@ hue_variation_min = -0.26
 hue_variation_max = 0.26
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_u5sy4")
+stream = ExtResource("6_p57ef")
 autoplay = true
 bus = &"Music"
 parameters/looping = true

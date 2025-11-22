@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bimnvmupjkb4f"
+path="res://.godot/imported/Noem Cats Looped.mp3-df6eb347a0b5caf99d2ac7bf38938540.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Noem Cats Looped.mp3"
+dest_files=["res://.godot/imported/Noem Cats Looped.mp3-df6eb347a0b5caf99d2ac7bf38938540.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=36.0
+bpm=0.0
+beat_count=0
+bar_beats=4
