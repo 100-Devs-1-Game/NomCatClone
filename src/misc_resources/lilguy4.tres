@@ -9,6 +9,7 @@
 
 [resource]
 script = ExtResource("1_1n8vj")
+ID = 4
 IdleImage = ExtResource("2_g41sa")
 OpenImage = ExtResource("3_w44xk")
 SadImage1 = ExtResource("4_23bie")

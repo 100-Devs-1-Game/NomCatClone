@@ -49,6 +49,8 @@ var started = false
 
 func start():
 	randomize()
+	lilguy_left.assigned = PlayerData.lilguy1_skin
+	lilguy_right.assigned = PlayerData.lilguy2_skin
 	timer.start()
 	started = true
 
