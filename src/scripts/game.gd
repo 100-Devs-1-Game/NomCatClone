@@ -49,8 +49,12 @@ var started = false
 
 func start():
 	randomize()
-	lilguy_left.assigned = PlayerData.lilguy1_skin
-	lilguy_right.assigned = PlayerData.lilguy2_skin
+	music.play()
+	game_over.connect(music.stop)
+	lilguy_left.assigned_guy = PlayerData.SKINS.get(PlayerData.lilguy1_skin)
+	lilguy_right.assigned_guy = PlayerData.SKINS.get(PlayerData.lilguy2_skin)
+	lilguy_left.reset()
+	lilguy_right.reset()
 	timer.start()
 	started = true
 
@@ -59,7 +63,7 @@ var increment = 0.0
 func _on_timeout() -> void:
 	spawn_catchable()
 	var new_increment = Score / 10.0
-	var maxtime = 3.0 - new_increment
+	var maxtime = 5.0 - new_increment
 	timer.start(randf_range(0.5, maxtime))
 
 func _process(delta: float) -> void:
@@ -113,7 +117,7 @@ func spawn_catchable():
 	if random_type < 0.25:
 		spr.texture = BOMB_TEXTURE
 		c = Catchable.new(CATCHABLE_TYPE.BOMB, side, spr)
-	elif random_type < 0.9:
+	elif random_type < 0.97:
 		spr.texture = FISH_1_TEXTURE
 		c = Catchable.new(CATCHABLE_TYPE.FISH, side, spr)
 	else:
@@ -122,3 +126,8 @@ func spawn_catchable():
 	assert(c != null, "failed to create catchable")
 	catchable_instances.append(c)
 	
+
+
+func _on_game_over() -> void:
+	await get_tree().create_timer(5.0).timeout
+	$CanvasLayer.show()
