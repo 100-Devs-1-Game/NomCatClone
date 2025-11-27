@@ -20,7 +20,7 @@ func _on_start_button_down() -> void:
 	game.start()
 
 func _on_shop_button_down() -> void:
-current	fish.text = str(PlayerData.goldfish)
+	fish.text = str(PlayerData.goldfish)
 	if PlayerData.goldfish < 5:
 		fish.modulate = Color.RED
 	else:
