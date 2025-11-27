@@ -20,6 +20,11 @@ func _on_start_button_down() -> void:
 	game.start()
 
 func _on_shop_button_down() -> void:
+current	fish.text = str(PlayerData.goldfish)
+	if PlayerData.goldfish < 5:
+		fish.modulate = Color.RED
+	else:
+		fish.modulate = Color.WHITE
 	main_menu.hide()
 	shop.show()
 
@@ -29,6 +34,7 @@ func _on_quit_button_down() -> void:
 func _on_buy_button_down() -> void:
 	if PlayerData.goldfish >= 5:
 		PlayerData.goldfish -= 5
+		fish.text = str(PlayerData.goldfish)
 		price.hide()
 		buy.hide()
 		equipbuttons.show()
@@ -49,6 +55,11 @@ func _on_back_button_down() -> void:
 	main_menu.show()
 
 func _on_next_button_down() -> void:
+	fish.text = str(PlayerData.goldfish)
+	if PlayerData.goldfish < 5:
+		fish.modulate = Color.RED
+	else:
+		fish.modulate = Color.WHITE
 	shop_index += 1
 	icon.texture = PlayerData.SKINS.get(shop_index).IdleImage
 	if PlayerData.unlocked_skins.has(shop_index):
@@ -62,6 +73,11 @@ func _on_next_button_down() -> void:
 
 
 func _on_prev_button_down() -> void:
+	fish.text = str(PlayerData.goldfish)
+	if PlayerData.goldfish < 5:
+		fish.modulate = Color.RED
+	else:
+		fish.modulate = Color.WHITE
 	shop_index -= 1
 	icon.texture = PlayerData.SKINS.get(shop_index).IdleImage
 	if PlayerData.unlocked_skins.has(shop_index):
