@@ -40,7 +40,10 @@ var catchable_instances: Array[Catchable] = []
 @onready var lilguy_right: Sprite2D = $lilguy_sprite2
 @onready var music: AudioStreamPlayer = $AudioStreamPlayer
 
-var Score: int = 0
+var Score: int = 0: 
+	set(value):
+		Score = value
+		if Score > PlayerData.high_score: PlayerData.high_score = Score
 signal game_over
 
 @export var heightcurve: Curve

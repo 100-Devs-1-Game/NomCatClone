@@ -28,6 +28,7 @@ func _on_shop_button_down() -> void:
 	shop.show()
 
 func _on_quit_button_down() -> void:
+	PlayerData.save_data()
 	get_tree().quit()
 
 func _on_buy_button_down() -> void:
