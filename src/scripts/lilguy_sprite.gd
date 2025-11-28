@@ -17,7 +17,7 @@ var Boomed: Texture2D
 
 var went_boom = false
 var sad = false
-var sad_time = 0.1
+var sad_time = 0.0
 
 @export var control: String = ""
 
@@ -45,6 +45,7 @@ func _process(delta: float) -> void:
 					texture = Sad2
 				else:
 					texture = Sad1
+				sad_time = 0.5
 	else:
 		if Input.is_action_pressed(control):
 			texture = Open

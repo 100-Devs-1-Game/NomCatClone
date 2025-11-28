@@ -130,6 +130,7 @@ func spawn_catchable():
 
 func _on_game_over() -> void:
 	for c in catchable_instances:
+		c.boundsprite.hide()
 		c.boundsprite.queue_free()
 	catchable_instances.clear()
 	music.stop()
