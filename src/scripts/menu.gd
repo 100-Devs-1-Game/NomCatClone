@@ -15,7 +15,6 @@ var shop_index: int = 2:
 		shop_index = wrapi(value, 2, 9)
 
 func _on_start_button_down() -> void:
-	main_menu.show()
 	parent_layer.hide()
 	game.start()
 

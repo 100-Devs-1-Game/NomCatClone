@@ -50,7 +50,6 @@ var started = false
 func start():
 	randomize()
 	music.play()
-	game_over.connect(music.stop)
 	lilguy_left.assigned_guy = PlayerData.SKINS.get(PlayerData.lilguy1_skin)
 	lilguy_right.assigned_guy = PlayerData.SKINS.get(PlayerData.lilguy2_skin)
 	lilguy_left.reset()
@@ -67,6 +66,7 @@ func _on_timeout() -> void:
 	timer.start(randf_range(0.5, maxtime))
 
 func _process(delta: float) -> void:
+	if !started: return
 	var cleanup = []
 	for c in catchable_instances:
 		if c.update(delta, heightcurve) and !c.type == CATCHABLE_TYPE.BOMB:
@@ -129,5 +129,10 @@ func spawn_catchable():
 
 
 func _on_game_over() -> void:
+	for c in catchable_instances:
+		c.boundsprite.queue_free()
+	catchable_instances.clear()
+	music.stop()
+	started = false
 	await get_tree().create_timer(5.0).timeout
 	$CanvasLayer.show()

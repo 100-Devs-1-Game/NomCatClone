@@ -81,6 +81,7 @@ alignment = 1
 
 [node name="Start" type="TextureButton" parent="CanvasLayer/Control/TextureRect/MainMenu/VBoxContainer"]
 layout_mode = 2
+action_mode = 0
 texture_normal = ExtResource("5_1kice")
 
 [node name="Shop" type="TextureButton" parent="CanvasLayer/Control/TextureRect/MainMenu/VBoxContainer"]

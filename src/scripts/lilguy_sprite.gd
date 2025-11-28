@@ -1,6 +1,13 @@
 extends Sprite2D
 
-@export var assigned_guy: LilGuySkin
+@export var assigned_guy: LilGuySkin:
+	set(value):
+		assigned_guy = value
+		Idle = assigned_guy.IdleImage
+		Open = assigned_guy.OpenImage
+		Sad1 = assigned_guy.SadImage1
+		Sad2 = assigned_guy.SadImage2
+		Boomed = assigned_guy.BoomedImage
 
 var Sad1: Texture2D
 var Sad2: Texture2D
@@ -23,11 +30,10 @@ func _ready() -> void:
 	reset()
 
 func reset() -> void:
-	Idle = assigned_guy.IdleImage
-	Open = assigned_guy.OpenImage
-	Sad1 = assigned_guy.SadImage1
-	Sad2 = assigned_guy.SadImage2
-	Boomed = assigned_guy.BoomedImage
+	sad = false
+	went_boom = false
+	if Idle:
+		texture = Idle
 
 func _process(delta: float) -> void:
 	if sad:
