@@ -22,7 +22,7 @@ var sad_time = 0.0
 @export var control: String = ""
 
 @onready var particles: CPUParticles2D = $particles
-@onready var boomparticles: CPUParticles2D = $boomparticles
+@onready var boomparticles: AnimatedSprite2D = $boomparticles
 
 
 func _ready() -> void:
@@ -51,3 +51,11 @@ func _process(delta: float) -> void:
 			texture = Open
 		else:
 			texture = Idle
+
+func _on_boomparticles_animation_finished() -> void:
+	boomparticles.hide()
+
+
+func _on_boomparticles_frame_changed() -> void:
+	if boomparticles.frame >= 3:
+		went_boom = true

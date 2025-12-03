@@ -44,6 +44,8 @@ var Score: int = 0:
 	set(value):
 		Score = value
 		if Score > PlayerData.high_score: PlayerData.high_score = Score
+		if Score != 0 and Score % 10 == 0:
+			PlayerData.goldfish += 1
 signal game_over
 
 @export var heightcurve: Curve
@@ -79,14 +81,16 @@ func _process(delta: float) -> void:
 			match c.type:
 				CATCHABLE_TYPE.FISH:
 					Score += 1
+					lilguy_left.particles.modulate = Color.WHITE
 					lilguy_left.particles.emitting = true
 				CATCHABLE_TYPE.GOLD:
 					Score += 1
 					PlayerData.goldfish += 1
+					lilguy_left.particles.modulate = Color.BLUE
 					lilguy_left.particles.emitting = true
 				CATCHABLE_TYPE.BOMB:
-					lilguy_left.went_boom = true
-					lilguy_left.boomparticles.emitting = true
+					lilguy_left.boomparticles.show()
+					lilguy_left.boomparticles.play("default")
 					timer.stop()
 					game_over.emit()
 			cleanup.append(c)
@@ -94,14 +98,16 @@ func _process(delta: float) -> void:
 			match c.type:
 				CATCHABLE_TYPE.FISH:
 					Score += 1
+					lilguy_right.particles.modulate = Color.WHITE
 					lilguy_right.particles.emitting = true
 				CATCHABLE_TYPE.GOLD:
 					Score += 1
+					lilguy_right.particles.modulate = Color.BLUE
 					lilguy_right.particles.emitting = true
 					PlayerData.goldfish += 1
 				CATCHABLE_TYPE.BOMB:
-					lilguy_right.went_boom = true
-					lilguy_right.boomparticles.emitting = true
+					lilguy_right.boomparticles.show()
+					lilguy_right.boomparticles.play("default")
 					timer.stop()
 					game_over.emit()
 			cleanup.append(c)
