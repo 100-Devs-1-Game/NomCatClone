@@ -61,39 +61,26 @@ func _on_back_button_down() -> void:
 	main_menu.show()
 
 func _on_next_button_down() -> void:
-	fish.text = str(PlayerData.goldfish)
-	if PlayerData.goldfish < 5:
-		fish.modulate = Color.RED
-	else:
-		fish.modulate = Color.WHITE
-	shop_index += 1
-	icon.texture = PlayerData.SKINS.get(shop_index).IdleImage
-	if PlayerData.unlocked_skins.has(shop_index):
-		price.hide()
-		buy.hide()
-		equipbuttons.show()
-		equip_left_button.disabled= false
-		equip_right_button.disabled= false
-	else:
-		price.show()
-		buy.show()
-		equipbuttons.hide()
-
+	change_page(1)
 
 func _on_prev_button_down() -> void:
-	fish.text = str(PlayerData.goldfish)
+	change_page(-1)
+
+
+func change_page(delta: int):
+	fish.text = "%d / 5" % (PlayerData.goldfish)
 	if PlayerData.goldfish < 5:
 		fish.modulate = Color.RED
 	else:
 		fish.modulate = Color.WHITE
-	shop_index -= 1
+	shop_index += delta
 	icon.texture = PlayerData.SKINS.get(shop_index).IdleImage
 	if PlayerData.unlocked_skins.has(shop_index):
 		price.hide()
 		buy.hide()
 		equipbuttons.show()
-		equip_left_button.disabled= false
-		equip_right_button.disabled= false
+		equip_left_button.disabled= PlayerData.lilguy1_skin == shop_index
+		equip_right_button.disabled= PlayerData.lilguy2_skin == shop_index
 	else:
 		price.show()
 		buy.show()
