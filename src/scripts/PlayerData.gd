@@ -44,7 +44,7 @@ func _exit_tree() -> void:
 
 #Call this when closing the game
 func save_data() -> void:
-	if Engine.is_editor_hint(): return
+	if OS.has_feature("editor"): return
 	var packed = {
 		"high_score": high_score,"goldfish": goldfish
 	}

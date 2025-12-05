@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bqkoh1kgumd4p"]
+[gd_scene load_steps=38 format=3 uid="uid://bqkoh1kgumd4p"]
 
 [ext_resource type="Script" uid="uid://cm8pwj3ifxvxc" path="res://scripts/game.gd" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://cjt43hbdvjpvb" path="res://assets/background/bg.png" id="2_kvpfn"]
@@ -26,6 +26,12 @@
 [ext_resource type="Texture2D" uid="uid://br2p7puh7rvyu" path="res://assets/explosion/004.png" id="23_qouja"]
 [ext_resource type="Texture2D" uid="uid://bgvsuw6x8mwyo" path="res://assets/explosion/005.png" id="24_wljb1"]
 [ext_resource type="Texture2D" uid="uid://bdpnwjrfwgcaw" path="res://assets/explosion/006.png" id="25_v2yb1"]
+[ext_resource type="AudioStream" uid="uid://ds61hji5tq6ix" path="res://assets/final sfx/fish eaten.mp3" id="27_wljb1"]
+[ext_resource type="AudioStream" uid="uid://dulnv1oobeqpm" path="res://assets/final sfx/game over.mp3" id="28_v2yb1"]
+[ext_resource type="AudioStream" uid="uid://djc2tfgbrsj18" path="res://assets/final sfx/explode.mp3" id="29_js0lu"]
+[ext_resource type="AudioStream" uid="uid://cvdonyj036g0m" path="res://assets/final sfx/bomb on screen.mp3" id="30_gxtfn"]
+[ext_resource type="AudioStream" uid="uid://cwaayqim021rg" path="res://assets/final sfx/open mouth1.mp3" id="31_twgab"]
+[ext_resource type="AudioStream" uid="uid://h41d3ptpsye1" path="res://assets/final sfx/shiny fish eaten.mp3" id="32_02fa5"]
 
 [sub_resource type="Curve" id="Curve_vtaks"]
 _limits = [-1.0, 1.5, 0.0, 2.5]
@@ -262,11 +268,13 @@ one_shot = true
 explosiveness = 0.5
 randomness = 0.25
 emission_shape = 2
-emission_sphere_radius = 32.0
-direction = Vector2(0, -1)
+emission_sphere_radius = 128.0
+direction = Vector2(0, 0)
+spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 256.0
 initial_velocity_max = 320.0
+scale_amount_max = 1.2
 
 [node name="boomparticles" type="AnimatedSprite2D" parent="lilguy_sprite1"]
 visible = false
@@ -291,11 +299,13 @@ one_shot = true
 explosiveness = 0.5
 randomness = 0.25
 emission_shape = 2
-emission_sphere_radius = 32.0
-direction = Vector2(0, -1)
+emission_sphere_radius = 128.0
+direction = Vector2(0, 0)
+spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 256.0
 initial_velocity_max = 320.0
+scale_amount_max = 1.2
 
 [node name="boomparticles" type="AnimatedSprite2D" parent="lilguy_sprite2"]
 visible = false
@@ -306,6 +316,26 @@ sprite_frames = SubResource("SpriteFrames_gxtfn")
 stream = ExtResource("6_p57ef")
 bus = &"Music"
 parameters/looping = true
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="eaten_fish" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("27_wljb1")
+
+[node name="GameOver" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("28_v2yb1")
+
+[node name="boom" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("29_js0lu")
+
+[node name="bomb_alert" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("30_gxtfn")
+
+[node name="open" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("31_twgab")
+
+[node name="shiny" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("32_02fa5")
 
 [connection signal="game_over" from="." to="." method="_on_game_over"]
 [connection signal="button_down" from="CanvasLayer/Control/TextureRect/MainMenu/VBoxContainer/Start" to="CanvasLayer/Control" method="_on_start_button_down"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ds61hji5tq6ix"
+path="res://.godot/imported/fish eaten.mp3-edda6acd7b3cbf6e0d275a3f3bf23bd8.mp3str"
+
+[deps]
+
+source_file="res://assets/final sfx/fish eaten.mp3"
+dest_files=["res://.godot/imported/fish eaten.mp3-edda6acd7b3cbf6e0d275a3f3bf23bd8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

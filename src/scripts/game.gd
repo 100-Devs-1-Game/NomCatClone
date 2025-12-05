@@ -39,6 +39,12 @@ var catchable_instances: Array[Catchable] = []
 @onready var lilguy_left: Sprite2D = $lilguy_sprite1
 @onready var lilguy_right: Sprite2D = $lilguy_sprite2
 @onready var music: AudioStreamPlayer = $AudioStreamPlayer
+@onready var eaten_fish: AudioStreamPlayer = $SFX/eaten_fish
+@onready var gameover_audio: AudioStreamPlayer = $SFX/GameOver
+@onready var boom: AudioStreamPlayer = $SFX/boom
+@onready var bomb_alert: AudioStreamPlayer = $SFX/bomb_alert
+@onready var open: AudioStreamPlayer = $SFX/open
+@onready var shiny: AudioStreamPlayer = $SFX/shiny
 
 var Score: int = 0: 
 	set(value):
@@ -77,43 +83,52 @@ func _process(delta: float) -> void:
 		if c.update(delta, heightcurve) and !c.type == CATCHABLE_TYPE.BOMB:
 			timer.stop()
 			game_over.emit()
-		if Input.is_action_pressed("ui_left") and absf(c.time) < 0.12 and !c.side:
+		if Input.is_action_pressed("ui_left") and absf(c.time) < 0.1 and !c.side:
 			match c.type:
 				CATCHABLE_TYPE.FISH:
 					Score += 1
 					lilguy_left.particles.modulate = Color.WHITE
 					lilguy_left.particles.emitting = true
+					eaten_fish.play()
 				CATCHABLE_TYPE.GOLD:
 					Score += 1
 					PlayerData.goldfish += 1
-					lilguy_left.particles.modulate = Color.BLUE
+					lilguy_left.particles.modulate = Color.CYAN
 					lilguy_left.particles.emitting = true
+					shiny.play()
 				CATCHABLE_TYPE.BOMB:
 					lilguy_left.boomparticles.show()
 					lilguy_left.boomparticles.play("default")
 					timer.stop()
+					boom.play()
 					game_over.emit()
+					await boom.finished
 			cleanup.append(c)
-		if Input.is_action_pressed("ui_right") and absf(c.time) < 0.12 and c.side:
+		if Input.is_action_pressed("ui_right") and absf(c.time) < 0.1 and c.side:
 			match c.type:
 				CATCHABLE_TYPE.FISH:
 					Score += 1
 					lilguy_right.particles.modulate = Color.WHITE
 					lilguy_right.particles.emitting = true
+					eaten_fish.play()
 				CATCHABLE_TYPE.GOLD:
 					Score += 1
-					lilguy_right.particles.modulate = Color.BLUE
+					lilguy_right.particles.modulate = Color.CYAN
 					lilguy_right.particles.emitting = true
 					PlayerData.goldfish += 1
+					shiny.play()
 				CATCHABLE_TYPE.BOMB:
 					lilguy_right.boomparticles.show()
 					lilguy_right.boomparticles.play("default")
 					timer.stop()
+					boom.play()
 					game_over.emit()
+					await boom.finished
 			cleanup.append(c)
 	
 	for c in cleanup:
-		c.boundsprite.queue_free()
+		if c.boundsprite:
+			c.boundsprite.queue_free()
 		catchable_instances.erase(c)
 		
 
@@ -126,6 +141,7 @@ func spawn_catchable():
 	if random_type < 0.25:
 		spr.texture = BOMB_TEXTURE
 		c = Catchable.new(CATCHABLE_TYPE.BOMB, side, spr)
+		bomb_alert.play()
 	elif random_type < 0.97:
 		spr.texture = FISH_1_TEXTURE
 		c = Catchable.new(CATCHABLE_TYPE.FISH, side, spr)
@@ -138,6 +154,7 @@ func spawn_catchable():
 
 
 func _on_game_over() -> void:
+	gameover_audio.play()
 	for c in catchable_instances:
 		c.boundsprite.hide()
 		c.boundsprite.queue_free()

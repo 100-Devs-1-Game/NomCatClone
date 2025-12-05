@@ -23,6 +23,7 @@ var sad_time = 0.0
 
 @onready var particles: CPUParticles2D = $particles
 @onready var boomparticles: AnimatedSprite2D = $boomparticles
+@onready var open: AudioStreamPlayer = $"../SFX/open"
 
 
 func _ready() -> void:
@@ -48,6 +49,8 @@ func _process(delta: float) -> void:
 				sad_time = 0.5
 	else:
 		if Input.is_action_pressed(control):
+			if texture != Open:
+				open.play()
 			texture = Open
 		else:
 			texture = Idle

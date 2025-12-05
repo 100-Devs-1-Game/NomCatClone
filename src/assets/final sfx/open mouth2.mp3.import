@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d4a1lbp72vwm6"
+path="res://.godot/imported/open mouth2.mp3-708e08a64e981764f1b0272a5f025a13.mp3str"
+
+[deps]
+
+source_file="res://assets/final sfx/open mouth2.mp3"
+dest_files=["res://.godot/imported/open mouth2.mp3-708e08a64e981764f1b0272a5f025a13.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
