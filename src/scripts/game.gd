@@ -45,6 +45,8 @@ var catchable_instances: Array[Catchable] = []
 @onready var bomb_alert: AudioStreamPlayer = $SFX/bomb_alert
 @onready var open: AudioStreamPlayer = $SFX/open
 @onready var shiny: AudioStreamPlayer = $SFX/shiny
+@onready var quit_button: TextureButton = %Quit
+
 
 var Score: int = 0: 
 	set(value):
@@ -58,6 +60,11 @@ signal game_over
 
 var started = false
 
+func _ready():
+	if OS.get_name() == "Web":
+		quit_button.hide()
+
+
 func start():
 	randomize()
 	music.play()
@@ -69,7 +76,7 @@ func start():
 	started = true
 
 var increment = 0.0
-
+	
 func _on_timeout() -> void:
 	spawn_catchable()
 	var new_increment = Score / 10.0
