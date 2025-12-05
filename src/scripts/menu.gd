@@ -37,7 +37,7 @@ func _on_quit_button_down() -> void:
 func _on_buy_button_down() -> void:
 	if PlayerData.goldfish >= 5:
 		PlayerData.goldfish -= 5
-		fish.text = str(PlayerData.goldfish)
+		fish.text = "%d / 5" % (PlayerData.goldfish)
 		price.hide()
 		buy.hide()
 		equipbuttons.show()
