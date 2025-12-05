@@ -9,6 +9,9 @@ extends Control
 @onready var buy: TextureButton = $TextureRect/Shop/VBoxContainer/Buy
 @onready var price: HBoxContainer = $TextureRect/Shop/VBoxContainer/price
 @onready var icon: TextureRect = $TextureRect/Shop/VBoxContainer/Icon
+@onready var equip_left_button: TextureButton = %equip_left
+@onready var equip_right_button: TextureButton = %equip_right
+
 
 var shop_index: int = 2:
 	set(value):
@@ -38,17 +41,20 @@ func _on_buy_button_down() -> void:
 		price.hide()
 		buy.hide()
 		equipbuttons.show()
+		equip_left_button.disabled= false
+		equip_right_button.disabled= false
 		PlayerData.unlocked_skins.append(shop_index)
 
 
 func _on_equip_left_button_down() -> void:
 	if !PlayerData.unlocked_skins.has(shop_index): return
 	PlayerData.lilguy1_skin = shop_index
-
+	equip_left_button.disabled= true
 
 func _on_equip_right_button_down() -> void:
 	if !PlayerData.unlocked_skins.has(shop_index): return
 	PlayerData.lilguy2_skin = shop_index
+	equip_right_button.disabled= true
 
 func _on_back_button_down() -> void:
 	shop.hide()
@@ -66,6 +72,8 @@ func _on_next_button_down() -> void:
 		price.hide()
 		buy.hide()
 		equipbuttons.show()
+		equip_left_button.disabled= false
+		equip_right_button.disabled= false
 	else:
 		price.show()
 		buy.show()
@@ -84,6 +92,8 @@ func _on_prev_button_down() -> void:
 		price.hide()
 		buy.hide()
 		equipbuttons.show()
+		equip_left_button.disabled= false
+		equip_right_button.disabled= false
 	else:
 		price.show()
 		buy.show()

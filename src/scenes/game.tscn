@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bqkoh1kgumd4p"]
+[gd_scene load_steps=43 format=3 uid="uid://bqkoh1kgumd4p"]
 
 [ext_resource type="Script" uid="uid://cm8pwj3ifxvxc" path="res://scripts/game.gd" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://cjt43hbdvjpvb" path="res://assets/background/bg.png" id="2_kvpfn"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://bvca28rxhgn3c" path="res://assets/UI/cropped/BUY_HOVER.png" id="13_02fa5"]
 [ext_resource type="Texture2D" uid="uid://drfedn5wiv8pa" path="res://assets/UI/cropped/white button.png" id="13_sww3w"]
 [ext_resource type="Texture2D" uid="uid://h3ywtl33uk5x" path="res://assets/UI/cropped/EQUIP_HOVER.png" id="15_nepv3"]
+[ext_resource type="Texture2D" uid="uid://dk8nnkbjufevq" path="res://assets/UI/cropped/EQUIP_DISABLED.png" id="16_02fa5"]
 [ext_resource type="Texture2D" uid="uid://dq6pdqeisepi7" path="res://assets/sparkle/2.png" id="18_bhx41"]
 [ext_resource type="Texture2D" uid="uid://dxt6a8uu4i8tp" path="res://assets/explosion/000.png" id="19_qnb83"]
 [ext_resource type="Texture2D" uid="uid://biqcupe03kymo" path="res://assets/explosion/001.png" id="20_sww3w"]
@@ -199,14 +200,18 @@ visible = false
 layout_mode = 2
 
 [node name="equip_left" type="TextureButton" parent="CanvasLayer/Control/TextureRect/Shop/VBoxContainer/equipbuttons"]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("11_bhx41")
 texture_hover = ExtResource("15_nepv3")
+texture_disabled = ExtResource("16_02fa5")
 
 [node name="equip_right" type="TextureButton" parent="CanvasLayer/Control/TextureRect/Shop/VBoxContainer/equipbuttons"]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("11_bhx41")
 texture_hover = ExtResource("15_nepv3")
+texture_disabled = ExtResource("16_02fa5")
 
 [node name="price" type="HBoxContainer" parent="CanvasLayer/Control/TextureRect/Shop/VBoxContainer"]
 layout_mode = 2
